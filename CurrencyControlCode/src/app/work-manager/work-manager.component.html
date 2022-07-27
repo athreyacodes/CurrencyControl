@@ -19,15 +19,7 @@
 
     <div class="data-card text-start mx-auto my-3 border p-4 bg-light">
         <h3>Configured Currency: <strong>{{ConfiguredCurrency?.code}}</strong></h3>
-        <h3>Other Data to configure:</h3>
-        <mat-form-field appearance="outline">
-            <mat-label>Symbol</mat-label>
-            <mat-select [(ngModel)]="Symbol" (ngModelChange)="UpdateOtherConfiguration()">
-                <mat-option *ngFor="let s of ['symbol-wide','symbol-narrow','code']" [value]="s">
-                    {{s}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <mat-divider class="mb-3"></mat-divider>
         <mat-form-field appearance="outline">
             <mat-label>Locale</mat-label>
             <mat-select [(ngModel)]="Locale" (ngModelChange)="UpdateOtherConfiguration()">
@@ -35,10 +27,21 @@
                     {{l}}
                 </mat-option>
             </mat-select>
+            <mat-hint>User preferred language</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="mt-3">
+            <mat-label>Symbol</mat-label>
+            <mat-select [(ngModel)]="Symbol" (ngModelChange)="UpdateOtherConfiguration()">
+                <mat-option *ngFor="let s of ['symbol-wide','symbol-narrow','code']" [value]="s">
+                    {{s}}
+                </mat-option>
+            </mat-select>
+            <mat-hint>Hard-coded/Configurable</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="mt-3">
             <mat-label>Digit</mat-label>
             <input matInput [(ngModel)]="Digit" [ngModelOptions]="{updateOn:'blur'}" (ngModelChange)="UpdateOtherConfiguration()">
+            <mat-hint>Hard-coded/Configurable</mat-hint>
         </mat-form-field>
     </div>
 

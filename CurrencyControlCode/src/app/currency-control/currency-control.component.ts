@@ -52,11 +52,6 @@ export class CurrencyControlComponent implements ControlValueAccessor {
     @Input() style: any = {};
     @Input() class: any = "";
 
-    // @Input() Symbol = "symbol-narrow";
-    // @Input() Digit = "1.2";
-    // @Input() Locale = "en";
-
-
     private innerValue: IEn8CurrencyObject = {} as IEn8CurrencyObject;
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
@@ -81,11 +76,8 @@ export class CurrencyControlComponent implements ControlValueAccessor {
     // }
 
     writeValue(value: IEn8CurrencyObject) {
-        this.innerValue = value || {} as IEn8CurrencyObject;
-    }
-
-    onModelChange(v: any) {
-        this.value.value = Number(v.replace(/[^0-9\.]/g, ""))
+        console.log("writeValue", value);
+        this.innerValue = (value || {}) as IEn8CurrencyObject;
     }
 
     registerOnChange(fn: any) {
@@ -98,6 +90,16 @@ export class CurrencyControlComponent implements ControlValueAccessor {
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+    }
+
+    // Additional Functions if required while implementing
+    onModelChange(v: any) {
+        this.value.value = Number(v.replace(/[^0-9\.]/g, ""))
+    }
+
+    onCodeChange(v: any) {
+        const curr = (this.CurrencyListArray || []).find(c => c.code === v);
+        this.value.name = curr?.name || "";
     }
 }
 

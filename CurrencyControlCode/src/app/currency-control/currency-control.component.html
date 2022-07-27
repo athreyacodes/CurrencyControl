@@ -5,6 +5,7 @@
     class="form-control bg-light"
     style="min-width:40px; max-width: 60px"
     [(ngModel)]="value.code"
+    (ngModelChange)="onCodeChange($event)"
     [disabled]="disabled"
     [title]="value?.name || ''"
 >

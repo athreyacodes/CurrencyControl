@@ -14,7 +14,7 @@ export class WorkManagerComponent implements OnInit, OnDestroy {
   Locale: string;
   CurrencyListArray: ICurrency[] = [];
   CurrencyList$: any;
-  LanguageList: string[] = ['en-gb', 'en-us', 'fr-fr', 'de-de', 'ro-ro', 'ru-ru', 'hu-hu', 'pt-br', 'pl-pl', 'es-419'];
+  LanguageList: string[] = ['en-gb', 'en-us', 'fr-fr', 'de-de', 'ro-ro', 'ru-ru', 'hu-hu', 'pt-br', 'pl-pl', 'es-419', 'en-in'];
 
   get ConfiguredCurrency() {
     return this.currencySrv.ConfiguredCurrency;

@@ -1,7 +1,20 @@
+// Modules
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Mat modules
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatDividerModule} from '@angular/material/divider';
+
+// Locale registry
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeHu from '@angular/common/locales/hu';
@@ -22,18 +35,10 @@ registerLocaleData(localePt, 'pt');
 registerLocaleData(localeRo, 'ro');
 registerLocaleData(localeRu, 'ru');
 
-
-import { AppRoutingModule } from './app-routing.module';
+// Components
 import { AppComponent } from './app.component';
 import { BuilderComponent } from './builder/builder.component';
 import { WorkManagerComponent } from './work-manager/work-manager.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
 import { CurrencyControlComponent } from './currency-control/currency-control.component';
 import { En8CurrencyPipe } from './en8-currency.pipe';
 
@@ -57,7 +62,8 @@ import { En8CurrencyPipe } from './en8-currency.pipe';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
