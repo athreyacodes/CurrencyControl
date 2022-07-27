@@ -4,14 +4,14 @@ import { CurrencyService } from './currency.service';
 
 @Pipe({
   name: 'en8Currency',
-  pure: false
+  pure: false // need not add this in WM, only for spike as the configs are dynamic. in WM, config will be static
 })
 export class En8CurrencyPipe implements PipeTransform {
 
   constructor(private currencySrv: CurrencyService) { }
 
   private getSymbolFormat(format: 'code' | 'symbol-wide' | 'symbol-narrow' | string | boolean, currencyCode: string) {
-    switch(format) {
+    switch (format) {
       case null:
       case undefined:
       case false: return "";
@@ -26,14 +26,14 @@ export class En8CurrencyPipe implements PipeTransform {
     value: number,
     currencyCode: string = this.currencySrv.ConfiguredCurrency?.code,
     symbol:
-        | 'code'
-        | 'symbol-wide'
-        | 'symbol-narrow'
-        | string
-        | boolean = this.currencySrv.Symbol,
+      | 'code'
+      | 'symbol-wide'
+      | 'symbol-narrow'
+      | string
+      | boolean = this.currencySrv.Symbol,
     digitsInfo: string = this.currencySrv.Digit,
     locale: string = this.currencySrv.Locale,
-): string | null {
+  ): string | null {
     return formatCurrency(
       value,
       locale,
@@ -41,6 +41,6 @@ export class En8CurrencyPipe implements PipeTransform {
       currencyCode,
       digitsInfo,
     );
-}
+  }
 
 }

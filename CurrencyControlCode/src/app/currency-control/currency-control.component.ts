@@ -1,24 +1,7 @@
-// import { Component, OnInit } from '@angular/core';
 
-// @Component({
-//   selector: 'app-currency-control',
-//   templateUrl: './currency-control.component.html',
-//   styleUrls: ['./currency-control.component.scss']
-// })
-// export class CurrencyControlComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-import { ChangeDetectorRef, Component, forwardRef, Input } from "@angular/core";
+import { Component, forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { ICurrency, IEn8CurrencyObject } from "../currency.service";
-// import { TranslateService } from "@ngx-translate/core";
-// import { DATA_DUMP_EVENT, OnDataDump } from "@shared/test/data-dumping.service";
-// import { CaseFlowPacketForUI, ICardOption } from "../../display-packet.objects";
 
 const noop = () => { };
 
@@ -61,7 +44,6 @@ export class CurrencyControlComponent implements ControlValueAccessor {
     }
 
     set value(value: IEn8CurrencyObject) {
-        console.log(value);
         if (value?.code !== this.innerValue?.code) {
             this.innerValue = (value || {}) as IEn8CurrencyObject;
             this.onTouchedCallback();
@@ -76,7 +58,6 @@ export class CurrencyControlComponent implements ControlValueAccessor {
     // }
 
     writeValue(value: IEn8CurrencyObject) {
-        console.log("writeValue", value);
         this.innerValue = (value || {}) as IEn8CurrencyObject;
     }
 
@@ -94,7 +75,7 @@ export class CurrencyControlComponent implements ControlValueAccessor {
 
     // Additional Functions if required while implementing
     onModelChange(v: any) {
-        this.value.value = Number(v.replace(/[^0-9\.]/g, ""))
+        this.value.value = Number(v.replace(/[^0-9\.]/g, ""));
     }
 
     onCodeChange(v: any) {
