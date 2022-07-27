@@ -1,0 +1,45 @@
+<div class="w-100 text-center position-relative">
+    <h2>Custom Card</h2>
+    <p>User can select the currency and value.</p>
+
+    <!-- BELOW IS THE EXAMPLE ON HOW WE USE CUSTOM CARD CONTROL -->
+    <div class="example-custom-card text-start mx-auto my-3 border p-4">
+        <h2>Example Card</h2>
+        <div class="form-group w-50 my-4">
+            <label class="m-2">Amount</label>
+            <app-currency-control [(ngModel)]="Amount" [CurrencyListArray]="CurrencyListArray"></app-currency-control>
+        </div>
+    </div>
+
+    <!-- BELOW CODE IS ONLY FOR THIS SPIKE. NOT FOR ACTUAL IMPLEMENTATION -->
+    <div class="example-custom-card mx-auto my-3 p-4 text-start">
+        <h5>JSON data</h5>
+        <pre>{{Amount | json}}</pre>
+    </div>
+
+    <div class="data-card text-start mx-auto my-3 border p-4 bg-light">
+        <h3>Configured Currency: <strong>{{ConfiguredCurrency?.code}}</strong></h3>
+        <h3>Other Data to configure:</h3>
+        <mat-form-field appearance="outline">
+            <mat-label>Symbol</mat-label>
+            <mat-select [(ngModel)]="Symbol" (ngModelChange)="UpdateOtherConfiguration()">
+                <mat-option *ngFor="let s of ['symbol-wide','symbol-narrow','code']" [value]="s">
+                    {{s}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Locale</mat-label>
+            <mat-select [(ngModel)]="Locale" (ngModelChange)="UpdateOtherConfiguration()">
+                <mat-option *ngFor="let l of LanguageList" [value]="l">
+                    {{l}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Digit</mat-label>
+            <input matInput [(ngModel)]="Digit" [ngModelOptions]="{updateOn:'blur'}" (ngModelChange)="UpdateOtherConfiguration()">
+        </mat-form-field>
+    </div>
+
+</div>

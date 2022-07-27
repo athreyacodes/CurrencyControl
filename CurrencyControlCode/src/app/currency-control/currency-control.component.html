@@ -1,0 +1,31 @@
+<div class="input-group">
+    <select
+    [ngClass]="class"
+    [ngStyle]="style"
+    class="form-control bg-light"
+    style="min-width:40px; max-width: 60px"
+    [(ngModel)]="value.code"
+    [disabled]="disabled"
+    [title]="value?.name || ''"
+>
+    <option [ngValue]="" disabled selected>Currency</option>
+    <option
+        *ngFor="let currency of _currencyListArray"
+        [ngValue]="currency.code"
+    >
+        {{ currency.code}} - {{currency.name }}
+    </option>
+</select>
+    <span class="input-group-addon">-</span>
+    <input [ngClass]="class"
+        placeholder="Amount"
+        [ngStyle]="style"
+        [ngModel]="value.value | en8Currency:value.code"
+        [ngModelOptions]="{updateOn:'blur'}"
+        (ngModelChange)="onModelChange($event)"
+        class="form-control d-inline"
+        [disabled]="disabled"
+    />
+</div>
+<!-- en8Currency -->
+<!-- currency:value.code:Symbol:Digit:Locale -->
