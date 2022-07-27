@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CurrencyService, ICurrency, IEn8CurrencyObject } from '../currency.service';
 
 @Component({
@@ -15,16 +15,16 @@ export class WorkManagerComponent implements OnInit, OnDestroy {
   CurrencyListArray: ICurrency[] = [];
   CurrencyList$: any;
   LanguageList: string[] = ['en-gb', 'en-us', 'fr-fr', 'de-de', 'ro-ro', 'ru-ru', 'hu-hu', 'pt-br', 'pl-pl', 'es-419', 'en-in'];
-
+  ApplyDisabled: boolean;
   get ConfiguredCurrency() {
     return this.currencySrv.ConfiguredCurrency;
   }
 
-  constructor(private currencySrv: CurrencyService, private cdr: ChangeDetectorRef) { }
+  constructor(private currencySrv: CurrencyService) { }
 
   ngOnInit(): void {
     this.LoadCurrencyList();
-    this.LoadInitialDataFromConfig();
+    this.ApplyConfig(this.ConfiguredCurrency);
   }
 
   ngOnDestroy(): void {
@@ -39,19 +39,20 @@ export class WorkManagerComponent implements OnInit, OnDestroy {
     });
   }
 
-  private LoadInitialDataFromConfig() {
-    const ConfiguredCurrency = this.ConfiguredCurrency;
-    this.Amount = ConfiguredCurrency ?
-      { code: ConfiguredCurrency.code, name: ConfiguredCurrency.name, value: 1000000 } as IEn8CurrencyObject :
+  ApplyConfig(currency: any) {
+    this.Amount = currency ?
+      { code: currency.code, name: currency.name, value: 1000000 } as IEn8CurrencyObject :
       { value: 1000000 } as IEn8CurrencyObject;
     this.Symbol = this.currencySrv.Symbol;
     this.Digit = this.currencySrv.Digit;
     this.Locale = this.currencySrv.Locale;
+    this.ApplyDisabled =true;
   }
 
   UpdateOtherConfiguration() {
     this.currencySrv.Symbol = this.Symbol;
     this.currencySrv.Digit = this.Digit;
     this.currencySrv.Locale = this.Locale;
+    this.ApplyDisabled = false;
   }
 }

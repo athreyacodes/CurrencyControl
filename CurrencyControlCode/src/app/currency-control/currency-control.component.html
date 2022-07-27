@@ -21,12 +21,15 @@
     <input [ngClass]="class"
         placeholder="Amount"
         [ngStyle]="style"
-        [ngModel]="value.value | en8Currency:value.code"
+        [ngModel]="displayValue"
         [ngModelOptions]="{updateOn:'blur'}"
         (ngModelChange)="onModelChange($event)"
+        (focus)="showUnformattedValue()"
+        (blur)="showFormattedValue()"
         class="form-control d-inline"
         [disabled]="disabled"
     />
 </div>
 <!-- en8Currency -->
 <!-- currency:value.code:Symbol:Digit:Locale -->
+<!-- value.value | en8Currency:value.code -->

@@ -2,6 +2,7 @@
 import { Component, forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { ICurrency, IEn8CurrencyObject } from "../currency.service";
+import { En8CurrencyPipe } from "../en8-currency.pipe";
 
 const noop = () => { };
 
@@ -17,7 +18,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
 })
 export class CurrencyControlComponent implements ControlValueAccessor {
-    constructor() { }
+    constructor(private en8CurrencyPipe: En8CurrencyPipe) { }
 
     _currencyListArray: ICurrency[] = [];
     @Input()
@@ -30,12 +31,14 @@ export class CurrencyControlComponent implements ControlValueAccessor {
         return this._currencyListArray;
     }
 
+    // Inputs for WM
     @Input() disabled = false;
     @Input() readonly = false;
     @Input() style: any = {};
     @Input() class: any = "";
 
     private innerValue: IEn8CurrencyObject = {} as IEn8CurrencyObject;
+    public displayValue: string | number = "";
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
 
@@ -46,6 +49,7 @@ export class CurrencyControlComponent implements ControlValueAccessor {
     set value(value: IEn8CurrencyObject) {
         if (value?.code !== this.innerValue?.code) {
             this.innerValue = (value || {}) as IEn8CurrencyObject;
+            this.showFormattedValue();
             this.onTouchedCallback();
             this.onChangeCallback(value);
             // this.OnChangeEnateActions();
@@ -59,6 +63,7 @@ export class CurrencyControlComponent implements ControlValueAccessor {
 
     writeValue(value: IEn8CurrencyObject) {
         this.innerValue = (value || {}) as IEn8CurrencyObject;
+        this.showFormattedValue();
     }
 
     registerOnChange(fn: any) {
@@ -81,6 +86,15 @@ export class CurrencyControlComponent implements ControlValueAccessor {
     onCodeChange(v: any) {
         const curr = (this.CurrencyListArray || []).find(c => c.code === v);
         this.value.name = curr?.name || "";
+        this.showFormattedValue();
+    }
+
+    showFormattedValue() {
+        this.displayValue = this.en8CurrencyPipe.transform(this.innerValue.value as number, this.innerValue.code) as string;
+    }
+
+    showUnformattedValue() {
+        this.displayValue = this.innerValue.value;
     }
 }
 

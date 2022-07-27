@@ -13,6 +13,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 // Locale registry
 import { registerLocaleData } from '@angular/common';
@@ -63,9 +64,10 @@ import { En8CurrencyPipe } from './en8-currency.pipe';
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     MatInputModule,
-    MatDividerModule
+    MatDividerModule,
+    MatButtonModule
   ],
-  providers: [],
+  providers: [En8CurrencyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
