@@ -1,54 +1,58 @@
-<div class="w-100 text-center position-relative">
-    <h2>Custom Card</h2>
-    <p>User can select the currency and value.</p>
-
-    <!-- BELOW IS THE EXAMPLE ON HOW WE USE CUSTOM CARD CONTROL -->
-    <div class="example-custom-card text-start mx-auto my-3 border p-4">
-        <h2>Example Card</h2>
-        <div class="form-group w-50 my-4">
-            <label class="m-2">Amount</label>
-            <app-currency-control [(ngModel)]="Amount" [CurrencyListArray]="CurrencyListArray"></app-currency-control>
+<div class="w-100 text-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <h2>Configurations</h2>
+                <div class="example-card text-start mx-auto my-3 border bg-light">
+                    <div class="p-4">
+                        <app-builder (updated)="UpdateBuilderConfiguration()"></app-builder>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="p-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Locale</mat-label>
+                            <mat-select [(ngModel)]="Locale" (ngModelChange)="UpdateOtherConfiguration()">
+                                <mat-option *ngFor="let l of LanguageList" [value]="l">
+                                    {{l}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint>User preferred language</mat-hint>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mt-3">
+                            <mat-label>Symbol</mat-label>
+                            <mat-select [(ngModel)]="Symbol" (ngModelChange)="UpdateOtherConfiguration()">
+                                <mat-option *ngFor="let s of ['symbol-wide','symbol-narrow','code']" [value]="s">
+                                    {{s}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint>Hard-coded/Configurable ?</mat-hint>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mt-3">
+                            <mat-label>Digit</mat-label>
+                            <input matInput [(ngModel)]="Digit" [ngModelOptions]="{updateOn:'blur'}"
+                                (ngModelChange)="UpdateOtherConfiguration()">
+                            <mat-hint>Hard-coded/Configurable ?</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <h2>WorkManager</h2>
+                <!-- BELOW IS THE EXAMPLE ON HOW WE USE CUSTOM CARD CONTROL -->
+                <div class="example-card w-100 text-start mx-auto my-3 border p-4">
+                    <h2>Example Custom Card</h2>
+                    <div class="form-group w-50 my-4">
+                        <label class="m-2">Amount</label>
+                        <app-currency-control [(ngModel)]="Amount" [CurrencyListArray]="CurrencyListArray">
+                        </app-currency-control>
+                    </div>
+                </div>
+                <!-- BELOW CODE IS ONLY FOR THIS SPIKE. NOT FOR ACTUAL IMPLEMENTATION -->
+                <div class="example-custom-card mx-auto my-3 p-4 text-start">
+                    <h5>JSON data</h5>
+                    <pre>{{Amount | json}}</pre>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- BELOW CODE IS ONLY FOR THIS SPIKE. NOT FOR ACTUAL IMPLEMENTATION -->
-    <div class="example-custom-card mx-auto my-3 p-4 text-start">
-        <h5>JSON data</h5>
-        <pre>{{Amount | json}}</pre>
-    </div>
-
-    <div class="data-card text-start mx-auto my-3 border p-4 bg-light">
-        <h3>Configured Currency: <strong>{{ConfiguredCurrency?.code}}</strong></h3>
-        <mat-divider class="mb-3"></mat-divider>
-        <mat-form-field appearance="outline">
-            <mat-label>Locale</mat-label>
-            <mat-select [(ngModel)]="Locale" (ngModelChange)="UpdateOtherConfiguration()">
-                <mat-option *ngFor="let l of LanguageList" [value]="l">
-                    {{l}}
-                </mat-option>
-            </mat-select>
-            <mat-hint>User preferred language</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="mt-3">
-            <mat-label>Symbol</mat-label>
-            <mat-select [(ngModel)]="Symbol" (ngModelChange)="UpdateOtherConfiguration()">
-                <mat-option *ngFor="let s of ['symbol-wide','symbol-narrow','code']" [value]="s">
-                    {{s}}
-                </mat-option>
-            </mat-select>
-            <mat-hint>Hard-coded/Configurable ?</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="mt-3">
-            <mat-label>Digit</mat-label>
-            <input matInput [(ngModel)]="Digit" [ngModelOptions]="{updateOn:'blur'}" (ngModelChange)="UpdateOtherConfiguration()">
-            <mat-hint>Hard-coded/Configurable ?</mat-hint>
-        </mat-form-field>
-
-        <div class="w-100 text-center pt-3">
-            <button mat-raised-button color="primary" (click)="ApplyConfig(Amount)" [disabled]="ApplyDisabled">Apply</button>
-            <p class="text-muted pt-3" style="font-size:11px">Configurations will be applied on load of WorkManager and will not be changed dynamically.</p>
-        </div>
-        
-    </div>
-
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CurrencyService, ICurrency } from '../currency.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -16,6 +16,8 @@ export class BuilderComponent implements OnInit {
 
   CurrencyControl = new FormControl('');
   FilteredCurrencyList: Observable<ICurrency[]>;
+
+  @Output() updated: EventEmitter<any> = new EventEmitter<any>();
 
   get ConfiguredCurrency() {
     return this.CurrencyControl?.value;
@@ -46,9 +48,14 @@ export class BuilderComponent implements OnInit {
 
   UpdateConfiguredCurrecncyToAPI() {
     this.currencySrv.ConfiguredCurrency = this.ConfiguredCurrency;
+    this.updated.emit();
   }
 
   displayFn(currency: ICurrency) {
     return currency?.code || "";
+  }
+
+  selectText(e: any) {
+    e?.target?.select();
   }
 }

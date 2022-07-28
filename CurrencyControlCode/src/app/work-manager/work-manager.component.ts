@@ -15,7 +15,7 @@ export class WorkManagerComponent implements OnInit, OnDestroy {
   CurrencyListArray: ICurrency[] = [];
   CurrencyList$: any;
   LanguageList: string[] = ['en-gb', 'en-us', 'fr-fr', 'de-de', 'ro-ro', 'ru-ru', 'hu-hu', 'pt-br', 'pl-pl', 'es-419', 'en-in'];
-  ApplyDisabled: boolean;
+
   get ConfiguredCurrency() {
     return this.currencySrv.ConfiguredCurrency;
   }
@@ -46,13 +46,18 @@ export class WorkManagerComponent implements OnInit, OnDestroy {
     this.Symbol = this.currencySrv.Symbol;
     this.Digit = this.currencySrv.Digit;
     this.Locale = this.currencySrv.Locale;
-    this.ApplyDisabled =true;
+  }
+
+  UpdateBuilderConfiguration() {
+    this.Amount = this.ConfiguredCurrency ?
+      { code: this.ConfiguredCurrency.code, name: this.ConfiguredCurrency.name, value: 1000000 } as IEn8CurrencyObject :
+      { value: 1000000 } as IEn8CurrencyObject;
   }
 
   UpdateOtherConfiguration() {
     this.currencySrv.Symbol = this.Symbol;
     this.currencySrv.Digit = this.Digit;
     this.currencySrv.Locale = this.Locale;
-    this.ApplyDisabled = false;
+    this.ApplyConfig(this.Amount);
   }
 }

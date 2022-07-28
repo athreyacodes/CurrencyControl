@@ -1,13 +1,8 @@
-<div class="w-100 text-center">
-    <h2>User or Contract Level</h2>
-    <p *ngIf="!ConfiguredCurrency">Configure the Currency.</p>
-    <p *ngIf="ConfiguredCurrency">Configured: {{ConfiguredCurrency.label}}</p>
-
-    <mat-spinner *ngIf="Loading" diameter="50" strokeWidth="1" class="mt-3 mx-auto"></mat-spinner>
+<mat-spinner *ngIf="Loading" diameter="50" strokeWidth="1" class="mt-3 mx-auto"></mat-spinner>
     <form>
         <mat-form-field *ngIf="CurrencyList?.length" appearance="outline">
-            <mat-label>Currency</mat-label>
-            <input matInput type="text" placeholder="Configure Currency" [formControl]="CurrencyControl" [matAutocomplete]="auto"  #trigger="matAutocompleteTrigger" (click)="trigger?.openPanel()">
+            <mat-label>Configured Currency in Builder</mat-label>
+            <input matInput type="text" placeholder="Configure Currency" [formControl]="CurrencyControl" [matAutocomplete]="auto"  #trigger="matAutocompleteTrigger" (click)="selectText($event);trigger?.openPanel();">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="UpdateConfiguredCurrecncyToAPI()">
                 <mat-option *ngFor="let currency of FilteredCurrencyList | async" [value]="currency">
                     {{currency.code}} - {{currency.name}}
@@ -16,4 +11,3 @@
             <mat-hint *ngIf="ConfiguredCurrency" style="font-size:14px">{{ConfiguredCurrency.name}}</mat-hint>
         </mat-form-field>
     </form>
-</div>
